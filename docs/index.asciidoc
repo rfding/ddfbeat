@@ -1,0 +1,5 @@
+= Connextametricbeat Docs
+
+Welcome to the Connextametricbeat documentation.
+
+
