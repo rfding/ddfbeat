@@ -30,7 +30,6 @@ type metric struct {
 		Timestamp string `json:"timestamp"`
 		Value float64 `json:"value"`
 	} `json:"data"`
-	//Title string `json:"title"`
 }
 
 // New creates an instance of connextametricbeat.
@@ -57,13 +56,11 @@ func (bt *Connextametricbeat) Run(b *beat.Beat) error {
 		return err
 	}
 
-	// create custom http client
 	httpClient, err := createCustomClient()
 	if err != nil {
 		return err
 	}
 
-	// get all the metric names
 	metricNamesURL := "https://localhost:8993/services/internal/metrics/"
 	body, err := getResponse(metricNamesURL, httpClient)
 	if err != nil {
@@ -83,7 +80,6 @@ func (bt *Connextametricbeat) Run(b *beat.Beat) error {
 			return err
 		}
 		metricData := make(map[string]metric, len(metricNames))
-		// for each of the metric names, find the value
 		for _, name := range metricNames {
 			// dateOffset=60 may return empty data, so use dateOffset=120 to ensure data is returned
 			url := "https://localhost:8993/services/internal/metrics/" + name + ".json?dateOffset=120"
@@ -91,7 +87,7 @@ func (bt *Connextametricbeat) Run(b *beat.Beat) error {
 			if err != nil {
 				return err
 			}
-			metricData[name], err = parseMetric(body)
+			metricData[name], err = parseMetricData(body)
 			if err != nil {
 				return err
 			}
@@ -104,7 +100,6 @@ func (bt *Connextametricbeat) Run(b *beat.Beat) error {
 			},
 		}
 
-		// add metric values to the beat event fields
 		for name, data := range metricData {
 			latest := len(data.Data) - 1
 			if latest >= 0 {
@@ -123,37 +118,40 @@ func (bt *Connextametricbeat) Stop() {
 	close(bt.done)
 }
 
+// Create a custom client to add timeout, skip SSL certificate verification
+// or add certificate to trusted certificate pool.
+// User must set environment variables DDFBeat_SSLSkip and DDFBeat_CertPath.
 func createCustomClient() (http.Client, error) {
-	var httpClient http.Client
+	httpClient := http.Client {
+		Timeout: time.Second * 10,
+	}
 
 	if strings.ToLower(os.Getenv("DDFBeat_SSLSkip")) == "true" {
 		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-
-		httpClient = http.Client {
-			Timeout: time.Second * 10,
-		}
 	} else {
-		caCert, err := ioutil.ReadFile(os.Getenv("DDFBeat_CertPath"))
+		certPath := os.Getenv("DDFBeat_CertPath")
+		if certPath == "" {
+			return httpClient, nil
+		}
+
+		caCert, err := ioutil.ReadFile(certPath)
 		if err != nil {
 			return http.Client{}, err
 		}
+
 		caCertPool := x509.NewCertPool()
 		caCertPool.AppendCertsFromPEM(caCert)
-
-		httpClient = http.Client {
-			Transport: &http.Transport{
-				TLSClientConfig: &tls.Config{
-					RootCAs: caCertPool,
-				},
+		httpClient.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{
+				RootCAs: caCertPool,
 			},
-			Timeout: time.Second * 10,
 		}
 	}
 
 	return httpClient, nil
 }
 
-// makes a get request to the given url using the client provided
+// Makes a get request to the given url using the provided client.
 func getResponse(url string, client http.Client) ([]byte, error) {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -173,6 +171,7 @@ func getResponse(url string, client http.Client) ([]byte, error) {
 	return body, nil
 }
 
+// Parses the metric names from the metric endpoint JSON response.
 func parseMetricNames(body []byte) ([]string, error) {
 	var metrics map[string]interface{}
 	jsonErr := json.Unmarshal(body, &metrics)
@@ -188,7 +187,8 @@ func parseMetricNames(body []byte) ([]string, error) {
 	return metricNames, nil
 }
 
-func parseMetric(body []byte) (metric, error) {
+// Parses the metric data from a specific metric endpoint.
+func parseMetricData(body []byte) (metric, error) {
 	metric1 := metric{}
 	jsonErr := json.Unmarshal(body, &metric1)
 	if jsonErr != nil {

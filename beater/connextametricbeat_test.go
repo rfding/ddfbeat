@@ -37,7 +37,7 @@ func TestParseMetric(t *testing.T) {
 
 	// test basic functionality
 	testJSON := []byte("{\"data\":[{\"value\":4.2,\"timestamp\":\"Jan 24 2019 11:03:00\"}, {\"value\":3,\"timestamp\":\"Jan 24 2019 11:04:00\"}], \"title\":\"Source Codice Confluence Queries for Jan 24 2019 11:02:56 to Jan 24 2019 11:04:56\",\"totalCount\":0}")
-	metrics, err := parseMetric(testJSON)
+	metrics, err := parseMetricData(testJSON)
 	parsedMetric := metric{
 		Data: []struct {
 			Timestamp string  `json:"timestamp"`;
@@ -56,6 +56,6 @@ func TestParseMetric(t *testing.T) {
 	assert.Equal(metrics, parsedMetric)
 	assert.Nil(err)
 
-	metrics, err = parseMetric([]byte("{{"))
+	metrics, err = parseMetricData([]byte("{{"))
 	assert.NotNil(err)
 }

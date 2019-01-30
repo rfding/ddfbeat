@@ -30,6 +30,17 @@ git push origin master
 
 For further development, check out the [beat developer guide](https://www.elastic.co/guide/en/beats/libbeat/current/new-beat.html).
 
+
+### Configuration Options
+
+This beat can be configured using environment variables. They are as follows:
+
+| Environment variable      | Description |
+| --------------------- | -------:|
+| `DDFBeat_SSLSkip` | Set to `true` to skip SSL certificate verification |
+| `DDFBeat_CertPath` | The path to the ca cert to be used during secure connections |
+
+
 ### Build
 
 To build the binary for Connextametricbeat run the command below. This will generate a binary
