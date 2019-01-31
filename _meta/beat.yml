@@ -1,7 +1,7 @@
-################### Connextametricbeat Configuration Example #########################
+################### DDFbeat Configuration Example #########################
 
-############################# Connextametricbeat ######################################
+############################# DDFbeat ######################################
 
-connextametricbeat:
+ddfbeat:
   # Defines how often an event is sent to the output
   period: 60s

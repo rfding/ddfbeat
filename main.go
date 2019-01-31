@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/rfding/connextametricbeat/cmd"
+	"github.com/connexta/ddfbeat/cmd"
 
-	_ "github.com/rfding/connextametricbeat/include"
+	_ "github.com/connexta/ddfbeat/include"
 )
 
 func main() {

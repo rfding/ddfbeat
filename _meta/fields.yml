@@ -1,5 +1,5 @@
-- key: connextametricbeat
-  title: connextametricbeat
+- key: ddfbeat
+  title: ddfbeat
   description:
   fields:
     - name: counter

@@ -1,5 +1,5 @@
-= Connextametricbeat Docs
+= DDFbeat Docs
 
-Welcome to the Connextametricbeat documentation.
+Welcome to the DDFbeat documentation.
 
 

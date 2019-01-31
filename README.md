@@ -1,18 +1,18 @@
-# Connextametricbeat
+# DDFbeat
 
-Welcome to Connextametricbeat.
+Welcome to DDFbeat.
 
 Ensure that this folder is at the following location:
-`${GOPATH}/src/github.com/rfding/connextametricbeat`
+`${GOPATH}/src/github.com/connexta/ddfbeat`
 
-## Getting Started with Connextametricbeat
+## Getting Started with DDFbeat
 
 ### Requirements
 
 * [Golang](https://golang.org/dl/) 1.7
 
 ### Init Project
-To get running with Connextametricbeat and also install the
+To get running with DDFbeat and also install the
 dependencies, run the following command:
 
 ```
@@ -21,10 +21,10 @@ make setup
 
 It will create a clean git history for each major step. Note that you can always rewrite the history if you wish before pushing your changes.
 
-To push Connextametricbeat in the git repository, run the following commands:
+To push DDFbeat in the git repository, run the following commands:
 
 ```
-git remote set-url origin https://github.com/rfding/connextametricbeat
+git remote set-url origin https://github.com/connexta/ddfbeat
 git push origin master
 ```
 
@@ -43,8 +43,8 @@ This beat can be configured using environment variables. They are as follows:
 
 ### Build
 
-To build the binary for Connextametricbeat run the command below. This will generate a binary
-in the same directory with the name connextametricbeat.
+To build the binary for DDFbeat run the command below. This will generate a binary
+in the same directory with the name ddfbeat.
 
 ```
 make
@@ -53,16 +53,16 @@ make
 
 ### Run
 
-To run Connextametricbeat with debugging output enabled, run:
+To run DDFbeat with debugging output enabled, run:
 
 ```
-./connextametricbeat -c connextametricbeat.yml -e -d "*"
+./ddfbeat -c ddfbeat.yml -e -d "*"
 ```
 
 
 ### Test
 
-To test Connextametricbeat, run the following command:
+To test DDFbeat, run the following command:
 
 ```
 make testsuite
@@ -90,7 +90,7 @@ make update
 
 ### Cleanup
 
-To clean  Connextametricbeat source code, run the following command:
+To clean DDFbeat source code, run the following command:
 
 ```
 make fmt
@@ -105,11 +105,11 @@ make clean
 
 ### Clone
 
-To clone Connextametricbeat from the git repository, run the following commands:
+To clone DDFbeat from the git repository, run the following commands:
 
 ```
-mkdir -p ${GOPATH}/src/github.com/rfding/connextametricbeat
-git clone https://github.com/rfding/connextametricbeat ${GOPATH}/src/github.com/rfding/connextametricbeat
+mkdir -p ${GOPATH}/src/github.com/connexta/ddfbeat
+git clone https://github.com/connexta/ddfbeat ${GOPATH}/src/github.com/connexta/ddfbeat
 ```
 
 

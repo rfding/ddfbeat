@@ -1,6 +1,6 @@
-BEAT_NAME=connextametricbeat
+BEAT_NAME=ddfbeat
 .DEFAULT_GOAL := ${BEAT_NAME}
-BEAT_PATH=github.com/rfding/connextametricbeat
+BEAT_PATH=github.com/connexta/ddfbeat
 BEAT_GOPATH=$(GOPATH)
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false
@@ -40,7 +40,7 @@ git-init:
 .PHONY: git-add
 git-add:
 	git add -A
-	git commit -m "Add generated connextametricbeat files"
+	git commit -m "Add generated ddfbeat files"
 
 # Build the beat application
 #${BEAT_NAME}: $(GOFILES_ALL)

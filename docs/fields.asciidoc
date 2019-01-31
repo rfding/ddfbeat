@@ -9,12 +9,12 @@ This file is generated! See _meta/fields.yml and scripts/generate_field_docs.py
 [partintro]
 
 --
-This document describes the fields that are exported by Connextametricbeat. They are
+This document describes the fields that are exported by Ddfbeat. They are
 grouped in the following categories:
 
 * <<exported-fields-beat>>
 * <<exported-fields-cloud>>
-* <<exported-fields-connextametricbeat>>
+* <<exported-fields-ddfbeat>>
 * <<exported-fields-docker-processor>>
 * <<exported-fields-ecs>>
 * <<exported-fields-host-processor>>
@@ -145,8 +145,8 @@ alias to: cloud.region
 
 --
 
-[[exported-fields-connextametricbeat]]
-== connextametricbeat fields
+[[exported-fields-ddfbeat]]
+== ddfbeat fields
 
 None
 

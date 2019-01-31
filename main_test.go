@@ -1,12 +1,12 @@
 package main
 
-// This file is mandatory as otherwise the connextametricbeat.test binary is not generated correctly.
+// This file is mandatory as otherwise the ddfbeat.test binary is not generated correctly.
 
 import (
 	"flag"
 	"testing"
 
-	"github.com/rfding/connextametricbeat/cmd"
+	"github.com/connexta/ddfbeat/cmd"
 )
 
 var systemTest *bool
